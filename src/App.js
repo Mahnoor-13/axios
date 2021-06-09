@@ -1,23 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import { useState } from 'react';
 
 function App() {
+  const [joke, setJoke] = useState("")
+  const getJoke = () => {
+    axios.get("https://official-joke-api.appspot.com/random_joke").then((response) => {
+      console.log(response);
+      setJoke(response.data.setup + " ***** " + response.data.punchline)
+    })
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>hello, Hunny bunny </h1>
+      <button onClick={getJoke}>Get Joke</button>
+      {joke}
     </div>
   );
 }
